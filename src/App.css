@@ -1,31 +1,222 @@
-.App {
+:root {
+  --bg: #0b0f1a;
+  --card: #131a2b;
+  --text: #e6e9f2;
+  --muted: #8b93a7;
+  --accent: #6c5ce7;
+  --accent2: #00d2ff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.page { min-height: 100vh; }
+
+/* ---------- HERO ---------- */
+.hero {
   text-align: center;
+  padding: 90px 20px 60px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(108, 92, 231, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(0, 210, 255, 0.2), transparent 40%);
+}
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); margin-bottom: 14px; }
+.hero p { color: var(--muted); max-width: 520px; margin: 0 auto 28px; }
+.grad-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cta {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4); }
+
+/* ---------- GRID ---------- */
+.grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px 16px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.card h3 { margin: 16px 0 6px; }
+.card p { color: var(--muted); font-size: 0.92rem; }
+.stage {
+  height: 190px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ---------- 1. GLASS ---------- */
+.card:nth-child(1) .stage {
+  background: linear-gradient(135deg, #ff6ec4, #7873f5, #4ade80);
+}
+.demo-glass {
+  padding: 28px 36px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ---------- 2. NEUMORFISMO ---------- */
+.card:nth-child(2) .stage { background: #2b3040; }
+.demo-neu {
+  padding: 30px 40px;
+  border-radius: 20px;
+  background: #2b3040;
+  box-shadow: 8px 8px 16px #1d212d, -8px -8px 16px #393f53;
+  font-weight: 600;
+  transition: box-shadow 0.3s;
+}
+.demo-neu:hover {
+  box-shadow: inset 6px 6px 12px #1d212d, inset -6px -6px 12px #393f53;
+}
+
+/* ---------- 3. NEÓN ---------- */
+.card:nth-child(3) .stage { background: #05060d; }
+.demo-neon {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: #fff;
+  padding: 10px 26px;
+  border: 3px solid #0ff;
+  border-radius: 12px;
+  text-shadow: 0 0 6px #0ff, 0 0 18px #0ff, 0 0 40px #0ff;
+  box-shadow: 0 0 10px #0ff, inset 0 0 10px #0ff;
+  animation: parpadeo 2.5s infinite;
+}
+@keyframes parpadeo {
+  0%, 18%, 22%, 62%, 66%, 100% { opacity: 1; }
+  20%, 64% { opacity: 0.4; }
+}
+
+/* ---------- 4. GRADIENTE ANIMADO ---------- */
+.card:nth-child(4) .stage { background: #0e1424; }
+.demo-gradient {
+  padding: 16px 36px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(120deg, #ff512f, #dd2476, #6c5ce7, #00d2ff);
+  background-size: 300% 300%;
+  animation: mover 5s ease infinite;
+  transition: transform 0.2s;
+}
+.demo-gradient:hover { transform: scale(1.08); }
+@keyframes mover {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- 5. FLIP CARD ---------- */
+.card:nth-child(5) .stage { background: #0e1424; }
+.flip { width: 150px; height: 120px; perspective: 800px; }
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+}
+.flip:hover .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-weight: 700;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-front { background: linear-gradient(135deg, var(--accent), #8e7bff); }
+.flip-back {
+  background: linear-gradient(135deg, var(--accent2), #4ade80);
+  color: #04202b;
+  transform: rotateY(180deg);
+}
+
+/* ---------- 6. RELOJ LED ---------- */
+.card:nth-child(6) .stage { background: #050505; }
+.led-wrap { text-align: center; }
+.led-display {
+  font-family: 'Courier New', monospace;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--led);
+  text-shadow: 0 0 8px var(--led), 0 0 22px var(--led);
+}
+.led-display small { font-size: 0.9rem; margin-left: 8px; }
+.led-controls {
+  margin-top: 14px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 12px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
-
-.App-link {
-  color: #61dafb;
+.led-controls input[type='color'] {
+  width: 38px;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
-
-.heart {
-  color: #ff0000;
+.led-controls button {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
 }
+.led-controls button:hover { background: rgba(255, 255, 255, 0.1); }
 
-.small {
-  font-size: 0.75rem;
+/* ---------- FOOTER ---------- */
+.footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
